@@ -29,8 +29,8 @@ class ActionSheetViewController: UIViewController
         })
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: deleteData(_:))
         actionSheet.addAction(cancelAction)// cancel always bottom most
+        actionSheet.addAction(deleteAction)//destructive buttons on top
         actionSheet.addAction(saveAction)// adds vertically top to down in order
-        actionSheet.addAction(deleteAction)
         present(actionSheet, animated: true, completion: nil)
     }
     
