@@ -13,6 +13,7 @@
 		0F84E2C4203EC1B900EF759B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F84E2C3203EC1B900EF759B /* Assets.xcassets */; };
 		0F84E2C7203EC1B900EF759B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F84E2C5203EC1B900EF759B /* LaunchScreen.storyboard */; };
 		0FF3B81220451F6200C253A6 /* ActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF3B81120451F6200C253A6 /* ActionSheetViewController.swift */; };
+		0FF3B8142045284900C253A6 /* LocalNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF3B8132045284900C253A6 /* LocalNotificationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0F84E2C6203EC1B900EF759B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F84E2C8203EC1B900EF759B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FF3B81120451F6200C253A6 /* ActionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
+		0FF3B8132045284900C253A6 /* LocalNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				0F84E2C5203EC1B900EF759B /* LaunchScreen.storyboard */,
 				0F84E2C8203EC1B900EF759B /* Info.plist */,
 				0FF3B81120451F6200C253A6 /* ActionSheetViewController.swift */,
+				0FF3B8132045284900C253A6 /* LocalNotificationViewController.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FF3B81220451F6200C253A6 /* ActionSheetViewController.swift in Sources */,
+				0FF3B8142045284900C253A6 /* LocalNotificationViewController.swift in Sources */,
 				0F84E2BF203EC1B900EF759B /* AlertViewController.swift in Sources */,
 				0F84E2BD203EC1B900EF759B /* AppDelegate.swift in Sources */,
 			);

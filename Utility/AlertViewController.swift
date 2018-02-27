@@ -6,6 +6,7 @@
 //  Copyright © 2018 Jasmee Sengupta. All rights reserved.
 //  Understanding UIAlertController - Alerts and Actionsheets
 //  // check alarm etc style
+// add each alert to IBAction for tutorial purpose, label text for action.
 
 import UIKit
 
@@ -113,7 +114,7 @@ class AlertViewController: UIViewController {
         let doneAction = UIAlertAction(title: "Done", style: .default, handler: nil)
         let huhAction = UIAlertAction(title: "Huh", style: .default, handler: nil)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        // >2 options, comes vertically, ok on top
+        // >2 options, comes vertically in order of adding, ok on top
         alert.addAction(okAction)
         alert.addAction(huhAction)
         alert.addAction(doneAction)
