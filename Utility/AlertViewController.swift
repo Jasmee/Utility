@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AlertViewController.swift
 //  Utility
 //
 //  Created by Jasmee Sengupta on 22/02/18.
@@ -9,7 +9,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class AlertViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
