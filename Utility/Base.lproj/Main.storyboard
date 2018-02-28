@@ -76,10 +76,13 @@
                                     <action selector="notifyOnLocation:" destination="JNz-jy-QIm" eventType="touchUpInside" id="yhe-VZ-7CB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-nP-Xvz">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JB0-nP-Xvz" userLabel="Notify with Custom Actions">
                                 <rect key="frame" x="149.5" y="368" width="76" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Notify Now"/>
+                                <state key="normal" title="Notify with Custom Actions"/>
+                                <connections>
+                                    <action selector="notifyWithCustomeActions:" destination="JNz-jy-QIm" eventType="touchUpInside" id="SID-SS-PoZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEP-d8-ksJ">
                                 <rect key="frame" x="117" y="496" width="141" height="30"/>

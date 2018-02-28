@@ -4,14 +4,23 @@
 //
 //  Created by Jasmee Sengupta on 27/02/18.
 //  Copyright © 2018 Jasmee Sengupta. All rights reserved.
-//
+//  All about Local Notifications
+//  Mext task - isAuthorizedToNotify how to sync call, autolayout issues, button text display, not repeating notif, badge how to
+/*
+ Important classes:
+ UserNotifications
+ UNUserNotificationCenter
+ UNAuthorizationOptions - 4 notification types, badge, sound, alert, carPlay
+ UNNotificationSettings
+ UNNotificationRequest - UNMutableNotificationContent and UNTimeIntervalNotificationTrigger -> schedule
+ */
 
 import Foundation
 import UIKit
 import UserNotifications//earlier to iOS 10, included in UIKit
 import CoreLocation
 
-class LocalNotificationViewController: UIViewController, UNUserNotificationCenterDelegate {
+class LocalNotificationViewController: UIViewController {
     
     //Constants: notification identifiers . enum required?
     let TIME_INTERVAL_NOTIFICATION = "TimeIntervalNotification"
@@ -22,12 +31,13 @@ class LocalNotificationViewController: UIViewController, UNUserNotificationCente
     override func viewDidLoad() {
         super.viewDidLoad()
         requestAuthorization()
+        registerCustomActionCategories()
         UNUserNotificationCenter.current().delegate = self
     }
     
     // MARK: Authorization to notify
     
-    //generally in appdelegate didfinishlaunchingwithoptions?
+    //early in app life application:didFinishLaunchingWithOptions: - The first time your App requests authorization the system shows the user an alert, after that they can manage the permissions from settings
     func requestAuthorization() {
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .sound, .badge, .carPlay]// Q. message does not change on options requested?
@@ -63,28 +73,52 @@ class LocalNotificationViewController: UIViewController, UNUserNotificationCente
     
     @IBAction func notifyInFiveSeconds(_ sender: UIButton) {
         // press cmd+shift+H or home button to take the app to background
-        triggerTimeIntervalNotification(notification: configNotificationContent())
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {// what about other 5 status
+                self.triggerTimeIntervalNotification(notification: self.configNotificationContent(body: "Notified in 5 seconds"))
+            } else {
+                print("This app is not authorized to deliver notifications")
+            }
+        })
     }
     
     @IBAction func notifyOnADate(_ sender: UIButton) {
-        triggerCalendarNotification(notification: configNotificationContent())
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {
+                self.triggerCalendarNotification(notification: self.configNotificationContent(body: "Notified on certain date"))
+            } else {
+                print("This app is not authorized to deliver notifications")
+            }
+        })
     }
     
     @IBAction func notifyOnLocation(_ sender: UIButton) {
-        triggerLocationNotification(notification: configNotificationContent())
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {
+                self.triggerLocationNotification(notification: self.configNotificationContent(body: "Notified on reaching location"))
+            } else {
+                print("This app is not authorized to deliver notifications")
+            }
+        })
     }
     
-    @IBAction func notifyWhenInForeground(_ sender: UIButton) {
-        triggerForegroundNotification(notification: configNotificationContent())
+    @IBAction func notifyWhenInForeground(_ sender: UIButton) {// needs willpresent delegate method
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {
+                self.triggerForegroundNotification(notification: self.configNotificationContent(body: "Notified in foreground"))
+            } else {
+                print("This app is not authorized to deliver notifications")
+            }
+        })
     }
     
     // MARK: Notification content and trigger
     
-    func configNotificationContent() -> UNMutableNotificationContent {
+    func configNotificationContent(body: String) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "Title"
         content.subtitle = "Subtitle"
-        content.body = "A good amount of text here"
+        content.body = body
         content.sound = UNNotificationSound.default()
         content.badge = 1// more on this
         // How and when to use all these below
@@ -106,7 +140,15 @@ class LocalNotificationViewController: UIViewController, UNUserNotificationCente
     }
     
     func triggerCalendarNotification(notification: UNMutableNotificationContent) {
-        
+        let date = Date(timeIntervalSinceNow: 10)
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)// not repeating
+        let request = UNNotificationRequest(identifier: CALENDAR_NOTIFICATION, content: notification, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Unable to trigger notification on specified date \(error)")
+            }
+        }
     }
     
     // Test whether actually works
@@ -123,6 +165,9 @@ class LocalNotificationViewController: UIViewController, UNUserNotificationCente
             }
         })
     }
+}
+
+extension LocalNotificationViewController: UNUserNotificationCenterDelegate {
     
     // UNUserNotificationCenterDelegate - willPresent required, to deliver when in foreground
     func triggerForegroundNotification(notification: UNMutableNotificationContent) {// App in foreground
@@ -135,9 +180,90 @@ class LocalNotificationViewController: UIViewController, UNUserNotificationCente
         })
     }
     
+    // needs delegate only to perform action when user selects a button, not for presenting.
+    // drag down the notification to reveal action buttons
+    @IBAction func notifyWithCustomeActions(_ sender: UIButton) {
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {
+                self.notificationWithCustomAction()
+            } else {
+                print("This app is not authorized to deliver notifications")
+            }
+        })
+    }
+    
+    func notificationWithCustomAction() {
+        let content = UNMutableNotificationContent()
+        content.title = "Let's start"
+        content.subtitle = "For the destiny, custom actions below"
+        content.body = "You have to go out in 10 minutes from now"
+        content.sound = UNNotificationSound.default()
+        //content.categoryIdentifier = "SnoozeOrDelete"
+        content.categoryIdentifier = "FourActions"
+        triggerForegroundNotification(notification: content)
+        //triggerTimeIntervalNotification(notification: content)// this works in foreground now
+    }
+    
+    func registerCustomActionCategories() {// register categories early in app lifecycle
+        let snoozeAction = UNNotificationAction(identifier: "snoozeAction", title: "Snooze", options: [])
+        let deleteAction = UNNotificationAction(identifier: "deleteAction", title: "Delete", options: [.destructive])
+        let okAction = UNNotificationAction(identifier: "okAction", title: "OK", options: [])
+        let thinkAction = UNNotificationAction(identifier: "thinkAction", title: "Think", options: [])
+        
+        let snoozeOrDeleteCategory = UNNotificationCategory(identifier: "SnoozeOrDelete", actions: [snoozeAction, deleteAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "Preview placeholder", options: [])
+        let foregroundCategory = UNNotificationCategory(identifier: "FourActions", actions: [okAction, snoozeAction, thinkAction, deleteAction], intentIdentifiers: [], options: [])
+        
+        //I am able to add more than four actions and also able to repeat them
+        //let extraAction = UNNotificationAction(identifier: "extraAction", title: "Extra", options: [])
+        //let foregroundCategory = UNNotificationCategory(identifier: "FourActions", actions: [okAction, snoozeAction, thinkAction, extraAction, extraAction, deleteAction], intentIdentifiers: [], options: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([snoozeOrDeleteCategory, foregroundCategory])
+        // check what you have got
+//        UNUserNotificationCenter.current().getNotificationCategories(completionHandler: {categories in
+//            print(categories)
+//        })
+    }
+    
     // MARK: UserNotification delegates
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])//deliver notification when app is in foreground, completionHandler - how does this work?
+        // Omit this method or omit the completion handler to ignore notification when in foreground
+        completionHandler([.alert, .badge, .sound])//deliver notification when app is in foreground, completionHandler required - why? how does this work?
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        //custom actions are handled here
+        print(response)
+        switch response.actionIdentifier {
+        case "snoozeAction":
+            print("User chose to snooze")
+        case "deleteAction":
+            print("User chose to delete")
+        default:
+            print("default")// ok. think not handled
+        }
+        completionHandler()// why call this? else warning at runtime debug log.
+    }
+    
+    // test these two methods. Use case?
+    
+    func pendingNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests { (pendingRequests) in
+            print(pendingRequests.count)
+            //center.removeAllPendingNotificationRequests() //OR remove by id
+            center.removePendingNotificationRequests(withIdentifiers: [self.CALENDAR_NOTIFICATION, self.LOCATION_NOTIFICATION])
+        }
+    }
+    
+    func deliveredNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.getDeliveredNotifications { (deliveredNotifications) in
+            print(deliveredNotifications.count)
+            //deliveredNotifications[0].date, deliveredNotifications[0].request // when to use
+            //center.removeAllDeliveredNotifications() //OR remove by id
+            center.removeDeliveredNotifications(withIdentifiers: [self.FOREGROUND_NOTIFICATION, self.TIME_INTERVAL_NOTIFICATION])
+        }
+    }
+    
 }
