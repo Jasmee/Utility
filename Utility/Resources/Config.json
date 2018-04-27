@@ -1,0 +1,33 @@
+{
+    "apiVersion": "v1.0",
+    "statusCode": "200",
+    "statusMessage": "Success",
+    "data":
+    [
+     {
+     "configID": "1",
+     "catalogueInfo" :
+     {
+     "catalogue_version" : "1.0",
+     "gold_rate" : "2000.87",
+     "diamond_rate" : "3000.78",
+     "tax" : "14.5"
+     },
+     "deviceInfo" :
+     {
+     "deviceID" : "",
+     "deviceType" : ""
+     },
+     "regionalUserInfo" :
+     {
+     "userID" : "",
+     "userName" : "",
+     "region" : "",
+     "coordinate-x" : "",
+     "coordinate-y" : ""
+     }
+     
+     }
+     ]
+    
+}

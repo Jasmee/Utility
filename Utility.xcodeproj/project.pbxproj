@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F1ADF7E204E838300DF09DE /* UserDefaultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ADF7D204E838300DF09DE /* UserDefaultsViewController.swift */; };
+		0F1ADF80204E918800DF09DE /* ReadLocalJSONViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ADF7F204E918800DF09DE /* ReadLocalJSONViewController.swift */; };
+		0F1ADF83204E920C00DF09DE /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1ADF82204E920C00DF09DE /* Config.json */; };
 		0F84E2BD203EC1B900EF759B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F84E2BC203EC1B900EF759B /* AppDelegate.swift */; };
 		0F84E2BF203EC1B900EF759B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F84E2BE203EC1B900EF759B /* AlertViewController.swift */; };
 		0F84E2C2203EC1B900EF759B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F84E2C0203EC1B900EF759B /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		0F1ADF7D204E838300DF09DE /* UserDefaultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsViewController.swift; sourceTree = "<group>"; };
+		0F1ADF7F204E918800DF09DE /* ReadLocalJSONViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadLocalJSONViewController.swift; sourceTree = "<group>"; };
+		0F1ADF82204E920C00DF09DE /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		0F84E2B9203EC1B900EF759B /* Utility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Utility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F84E2BC203EC1B900EF759B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F84E2BE203EC1B900EF759B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1ADF81204E91C800DF09DE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F1ADF82204E920C00DF09DE /* Config.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		0F84E2B0203EC1B900EF759B = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +74,7 @@
 		0F84E2BB203EC1B900EF759B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0F1ADF81204E91C800DF09DE /* Resources */,
 				0F84E2BC203EC1B900EF759B /* AppDelegate.swift */,
 				0F84E2BE203EC1B900EF759B /* AlertViewController.swift */,
 				0F84E2C0203EC1B900EF759B /* Main.storyboard */,
@@ -72,6 +85,7 @@
 				0FF3B8132045284900C253A6 /* LocalNotificationViewController.swift */,
 				0F87F722204951E400C1458B /* DatesViewController.swift */,
 				0F1ADF7D204E838300DF09DE /* UserDefaultsViewController.swift */,
+				0F1ADF7F204E918800DF09DE /* ReadLocalJSONViewController.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -136,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F84E2C7203EC1B900EF759B /* LaunchScreen.storyboard in Resources */,
+				0F1ADF83204E920C00DF09DE /* Config.json in Resources */,
 				0F84E2C4203EC1B900EF759B /* Assets.xcassets in Resources */,
 				0F84E2C2203EC1B900EF759B /* Main.storyboard in Resources */,
 			);
@@ -151,6 +166,7 @@
 				0F1ADF7E204E838300DF09DE /* UserDefaultsViewController.swift in Sources */,
 				0FF3B81220451F6200C253A6 /* ActionSheetViewController.swift in Sources */,
 				0FF3B8142045284900C253A6 /* LocalNotificationViewController.swift in Sources */,
+				0F1ADF80204E918800DF09DE /* ReadLocalJSONViewController.swift in Sources */,
 				0F84E2BF203EC1B900EF759B /* AlertViewController.swift in Sources */,
 				0F87F723204951E400C1458B /* DatesViewController.swift in Sources */,
 				0F84E2BD203EC1B900EF759B /* AppDelegate.swift in Sources */,
